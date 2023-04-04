@@ -1,5 +1,6 @@
-# -*- coding: future_fstrings -*-
 import sys, os, time
+import pyrootutils
+root = pyrootutils.setup_root(__file__, dotenv=True, pythonpath=True)
 
 t0 = time.time()
 import socket
