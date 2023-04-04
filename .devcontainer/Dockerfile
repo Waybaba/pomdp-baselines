@@ -60,8 +60,13 @@ RUN pip install \
     gym==0.25.0 \
     tianshou==0.4.11 \
     ftfy \
-    regex
-
+    regex \
+    ruamel.yaml \
+    seaborn \
+    gym[box2d] \
+    gym==0.21.0 \
+    roboschool \
+    mujoco-py==2.1.2.14
 
 
 # Non-root user creation and enter
