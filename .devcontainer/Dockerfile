@@ -57,13 +57,16 @@ RUN pip install \
     hydra-joblib-launcher \
     gymnasium \
     mujoco \
-    gym==0.25.0 \
     tianshou==0.4.11 \
     ftfy \
-    regex \
+    regex
+
+RUN pip install \
     ruamel.yaml \
     seaborn \
-    gym[box2d] \
+    pybullet \
+    pycolab \
+    "gym[box2d]" \
     gym==0.21.0 \
     roboschool \
     mujoco-py==2.1.2.14
