@@ -895,7 +895,39 @@ class Learner:
                 logger.record_tabular(
                     "metrics/success_rate_eval_sto", np.mean(success_rate_eval_sto)
                 )
+        
+        elif self.env_type == "delayed":
+            returns_eval, success_rate_eval, _, total_steps_eval = self.evaluate(
+                self.eval_tasks
+            )
+            if self.eval_stochastic:
+                (
+                    returns_eval_sto,
+                    success_rate_eval_sto,
+                    _,
+                    total_steps_eval_sto,
+                ) = self.evaluate(self.eval_tasks, deterministic=False)
 
+            logger.record_tabular("metrics/total_steps_eval", np.mean(total_steps_eval))
+            logger.record_tabular(
+                "metrics/return_eval_total", np.mean(np.sum(returns_eval, axis=-1))
+            )
+            logger.record_tabular(
+                "metrics/success_rate_eval", np.mean(success_rate_eval)
+            )
+
+            if self.eval_stochastic:
+                logger.record_tabular(
+                    "metrics/total_steps_eval_sto", np.mean(total_steps_eval_sto)
+                )
+                logger.record_tabular(
+                    "metrics/return_eval_total_sto",
+                    np.mean(np.sum(returns_eval_sto, axis=-1)),
+                )
+                logger.record_tabular(
+                    "metrics/success_rate_eval_sto", np.mean(success_rate_eval_sto)
+                )
+        
         else:
             raise ValueError
 
