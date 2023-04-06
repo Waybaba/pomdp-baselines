@@ -182,8 +182,8 @@ storage:
 search:
   job_template:
     name: RL_RNN_{experiment_name:s}_{auto:5s}
-    # sku: 24G1-P40
-    sku: G1
+    sku: 24G1-P40
+    # sku: G1
     command:
     - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed} --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0
       # python policies/main.py --cfg configs/delayed/rnn.yml --seed 1 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 &
