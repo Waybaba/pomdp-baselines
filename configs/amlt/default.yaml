@@ -191,11 +191,11 @@ search:
   max_trials: 10000
   params:
     - name: seed
-      values: [1,2,3,4]
+      values: [0,1,2,3,4]
     - name: ifdebug
       values: [nodebug]
     - name: delay_step
-      values: [0,1,2,4,8,16]
+      values: [1,2,4,8,16]
     - name: env_name
       # values: [HalfCheetah-v4]
       values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
