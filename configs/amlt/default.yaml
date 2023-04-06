@@ -185,13 +185,17 @@ search:
     # sku: 24G1-P40
     sku: G1
     command:
-    - python policies/main.py --cfg configs/delayed/rnn.yml --algo sac --{ifdebug} --seed {seed} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}
-      --cuda 0
+    - python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}  --cuda 0 &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}  --cuda 1 &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}  --cuda 2 &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}  --cuda 3 &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}  --cuda 4
+
+    
+     
   type: grid
   max_trials: 10000
   params:
-    - name: seed
-      values: [0,1,2,3,4]
     - name: ifdebug
       values: [nodebug]
     - name: delay_step
