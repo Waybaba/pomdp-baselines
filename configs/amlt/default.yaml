@@ -185,18 +185,7 @@ search:
     # sku: 24G1-P40
     sku: G1
     command:
-    # "--cfg", "${workspaceFolder}/configs/delayed/rnn.yml",
-    # "--algo", "sac",
-    # "--cuda", "0",
-    # "--debug", "False",
-    - python policies/main.py \
-    - --cfg configs/delayed/rnn.yml
-    - --algo sac
-    - --{ifdebug}
-    - --seed {seed}
-    - --env Delayed-v0,
-    - --sub_env_name {env_name},
-    - --delay_steps {delay_step},
+    - python policies/main.py --cfg configs/delayed/rnn.yml --algo sac --{ifdebug} --seed {seed} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}
   type: grid
   max_trials: 10000
   params:
