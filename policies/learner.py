@@ -27,7 +27,9 @@ from utils import logger
 
 class Learner:
     def __init__(self, env_args, train_args, eval_args, policy_args, seed, **kwargs):
+        self.kwargs = kwargs
         self.seed = seed
+        self.wandb = kwargs.get("wandb")
 
         self.init_env(**env_args)
 
@@ -369,7 +371,8 @@ class Learner:
             logger.log("Collecting initial pool of data..")
             while (
                 self._n_env_steps_total
-                < self.num_init_rollouts_pool * self.max_trajectory_len
+                < (self.num_init_rollouts_pool * self.max_trajectory_len
+                if not self.kwargs["debug"] else 100)
             ):
                 self.collect_rollouts(
                     num_rollouts=1,
@@ -385,20 +388,21 @@ class Learner:
             if isinstance(self.num_updates_per_iter, float):
                 # update: pomdp task updates more for the first iter_
                 train_stats = self.update(
-                    int(self._n_env_steps_total * self.num_updates_per_iter)
+                    int(self._n_env_steps_total * self.num_updates_per_iter) if not self.kwargs["debug"] else 100
                 )
                 self.log_train_stats(train_stats)
 
         last_eval_num_iters = 0
         while self._n_env_steps_total < self.n_env_steps_total:
             # collect data from num_rollouts_per_iter train tasks:
-            env_steps = self.collect_rollouts(num_rollouts=self.num_rollouts_per_iter)
+            env_steps = self.collect_rollouts(num_rollouts=self.num_rollouts_per_iter if not self.kwargs["debug"] else 10)
             logger.log("env steps", self._n_env_steps_total)
 
             train_stats = self.update(
-                self.num_updates_per_iter
+                (self.num_updates_per_iter
                 if isinstance(self.num_updates_per_iter, int)
-                else int(math.ceil(self.num_updates_per_iter * env_steps))
+                else int(math.ceil(self.num_updates_per_iter * env_steps)))
+                if not self.kwargs["debug"] else 10
             )  # NOTE: ceil to make sure at least 1 step
             self.log_train_stats(train_stats)
 
@@ -407,8 +411,9 @@ class Learner:
                 self.num_rollouts_per_iter * self.max_trajectory_len
             )
             if (
-                current_num_iters != last_eval_num_iters
-                and current_num_iters % self.log_interval == 0
+                (current_num_iters != last_eval_num_iters
+                and current_num_iters % self.log_interval == 0) or \
+                self.kwargs["debug"]
             ):
                 last_eval_num_iters = current_num_iters
                 perf = self.log()
@@ -941,6 +946,7 @@ class Learner:
         self._start_time_last = time.time()
 
         logger.dump_tabular()
+        self.wandb.log(logger.getkvs(), step=self._n_env_steps_total)
 
         if self.env_type == "generalize":
             return sum([v.mean() for v in success_rate_eval.values()]) / len(

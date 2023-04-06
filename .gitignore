@@ -5,7 +5,6 @@ __pycache__/
 *.pyc
 .cache/
 
-
 # logs, a soft link to disk
 logs
 logs/
@@ -20,3 +19,5 @@ third_party/
 
 # waybaba
 .devcontainer/mujoco/*
+.env
+!/.vscode/launch.json

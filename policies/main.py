@@ -33,6 +33,7 @@ flags.DEFINE_boolean(
 )
 flags.DEFINE_boolean("debug", False, "debug mode")
 
+
 flags.FLAGS(sys.argv)
 yaml = YAML()
 v = yaml.load(open(FLAGS.cfg))
@@ -153,6 +154,8 @@ logger.log("\n".join(f.serialize() for f in key_flags) + "\n")
 logger.log("pid", pid, socket.gethostname())
 os.makedirs(os.path.join(logger.get_dir(), "save"))
 
+import wandb
+wandb.init(project="RL_RNN", dir=log_folder+"/wandb", config=v)
 
 # start training
 learner = Learner(
@@ -161,6 +164,8 @@ learner = Learner(
     eval_args=v["eval"],
     policy_args=v["policy"],
     seed=seed,
+    debug=FLAGS.debug,
+    wandb=wandb,
 )
 
 logger.log(
