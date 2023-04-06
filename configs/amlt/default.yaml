@@ -191,7 +191,7 @@ search:
   max_trials: 10000
   params:
     - name: seed
-      values: [0,1,2,3,4]
+      values: [1,2,3,4]
     - name: ifdebug
       values: [nodebug]
     - name: delay_step
