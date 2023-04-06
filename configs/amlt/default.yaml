@@ -189,7 +189,7 @@ search:
     # "--algo", "sac",
     # "--cuda", "0",
     # "--debug", "False",
-    - python policies/main.py
+    - python policies/main.py \
     - --cfg configs/delayed/rnn.yml
     - --algo sac
     - --{ifdebug}
