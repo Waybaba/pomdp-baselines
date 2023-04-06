@@ -18,6 +18,8 @@ from policies.learner import Learner
 FLAGS = flags.FLAGS
 flags.DEFINE_string("cfg", None, "path to configuration file")
 flags.DEFINE_string("env", None, "env_name")
+flags.DEFINE_string("sub_env_name", None, "sub_env_name")
+flags.DEFINE_integer("delay_steps", None, "delay_steps")
 flags.DEFINE_string("algo", None, '["td3", "sac", "sacd"]')
 
 flags.DEFINE_boolean("automatic_entropy_tuning", None, "for [sac, sacd]")
@@ -41,6 +43,11 @@ v = yaml.load(open(FLAGS.cfg))
 # overwrite config params
 if FLAGS.env is not None:
     v["env"]["env_name"] = FLAGS.env
+if FLAGS.sub_env_name is not None:
+    v["env"]["sub_env_name"] = FLAGS.sub_env_name
+if FLAGS.delay_steps is not None:
+    v["env"]["delay_steps"] = FLAGS.delay_steps
+
 if FLAGS.algo is not None:
     v["policy"]["algo_name"] = FLAGS.algo
 
@@ -61,7 +68,8 @@ if FLAGS.cuda is not None:
     v["cuda"] = FLAGS.cuda
 if FLAGS.oracle:
     v["env"]["oracle"] = True
-
+if FLAGS.debug:
+    v["debug"] = FLAGS.debug
 # system: device, threads, seed, pid
 seed = v["seed"]
 system.reproduce(seed)
@@ -155,7 +163,7 @@ logger.log("pid", pid, socket.gethostname())
 os.makedirs(os.path.join(logger.get_dir(), "save"))
 
 import wandb
-wandb.init(project="RL_RNN", dir=log_folder+"/wandb", config=v)
+wandb.init(project="RL_RNN", dir=log_folder, config=v)
 
 # start training
 learner = Learner(

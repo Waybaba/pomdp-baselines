@@ -198,7 +198,7 @@ class Learner:
             import envs.delayed
 
             assert num_eval_tasks > 0
-            self.train_env = gym.make(env_name)
+            self.train_env = gym.make(env_name, delay_steps=kwargs["delay_steps"], sub_env_name=kwargs["sub_env_name"])
             self.train_env.seed(self.seed)
             self.train_env.action_space.np_random.seed(self.seed)  # crucial
 
@@ -945,8 +945,8 @@ class Learner:
         self._n_env_steps_total_last = self._n_env_steps_total
         self._start_time_last = time.time()
 
-        logger.dump_tabular()
         self.wandb.log(logger.getkvs(), step=self._n_env_steps_total)
+        logger.dump_tabular()
 
         if self.env_type == "generalize":
             return sum([v.mean() for v in success_rate_eval.values()]) / len(

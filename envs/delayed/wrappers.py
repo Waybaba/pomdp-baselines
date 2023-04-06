@@ -62,9 +62,10 @@ class DelayedWrapper(gym.Wrapper):
     ! TODO remove global_config related;
     ! TODO return last act and obs together
     """
-    def __init__(self, env0: gym.Env, delay_steps=2):
-        super().__init__(env0)
-        self.env = env0
+    def __init__(self, sub_env_name: str, delay_steps=2):
+        env = gym.make(sub_env_name)
+        super().__init__(env)
+        self.env = env
         self.delay_steps = delay_steps
         self.global_cfg = global_config(delay_steps)
         # cat 

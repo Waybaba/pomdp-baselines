@@ -23,13 +23,12 @@ np.concatenate(
 ])
 """
 
-for delay in range(1, 16):
-    register(
-        "HopperBLT-Delay_{}-v0".format(delay),
-        entry_point="envs.delayed.wrappers:DelayedWrapper",
-        kwargs=dict(
-            env0=gym.make("HopperBulletEnv-v0"),
-            delay_steps=delay,
-        ),
-        max_episode_steps=1000,
-    )
+register(
+    "Delayed-v0",
+    entry_point="envs.delayed.wrappers:DelayedWrapper",
+    kwargs=dict(
+        sub_env_name="False",
+        delay_steps=1,
+    ),
+    max_episode_steps=1000,
+)

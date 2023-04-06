@@ -2,8 +2,10 @@ seed: 7
 cuda: 2 # use_gpu
 env:
   env_type: delayed
-  env_name: HopperBLT-Delay_8-v0
-
+  # env_name: HopperBLT-Delay_8-v0
+  env_name: Delayed-v0
+  sub_env_name: HopperBulletEnv-v0"
+  delay_steps: 2
   num_eval_tasks: 10 # num of eval episodes
 
 train:
