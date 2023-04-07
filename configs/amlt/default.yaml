@@ -190,7 +190,7 @@ search:
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 1 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 2 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 3 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
-      python policies/main.py --cfg configs/delayed/rnn.yml --seed 4 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step}--cuda 0 --tags [{tags}]
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed 4 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
 
     
      
