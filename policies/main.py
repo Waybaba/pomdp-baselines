@@ -28,7 +28,7 @@ flags.DEFINE_float("entropy_alpha", None, "for [sac, sacd]")
 
 flags.DEFINE_integer("seed", None, "seed")
 flags.DEFINE_integer("cuda", None, "cuda device id")
-flags.DEFINE_string("tags", ["debug"], "wandb tags")
+flags.DEFINE_list("tags", ["debug"], "wandb tags")
 flags.DEFINE_boolean(
     "oracle",
     False,
@@ -168,7 +168,7 @@ os.makedirs(os.path.join(logger.get_dir(), "save"))
 
 import wandb
 
-wandb.init(project="RL_RNN", dir=log_folder, config=v, tags=v["tags"])
+wandb.init(project="RL_RNN", config=v, tags=v["tags"])
 
 # start training
 learner = Learner(
