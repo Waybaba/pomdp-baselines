@@ -168,7 +168,7 @@ os.makedirs(os.path.join(logger.get_dir(), "save"))
 
 import wandb
 
-wandb.init(project="RL_RNN", log_folder=log_folder, config=v, tags=v["tags"])
+wandb.init(project="RL_RNN", dir=log_folder, config=v, tags=v["tags"])
 
 # start training
 learner = Learner(
