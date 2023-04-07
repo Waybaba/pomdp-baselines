@@ -115,10 +115,10 @@ class DelayedWrapper(gym.Wrapper):
         info["obs_next_delayed"] = obs_next_delayed
         # history merge
         if self.history_num > 0:
+            info["historical_act"] = np.concatenate(self.act_buf, axis=0)
             self.act_buf.append(action)
             self.act_buf.pop(0)
             prev_act = self.act_buf[-1]
-            info["historical_act"] = np.concatenate(self.act_buf, axis=0)
             obs_next_delayed = np.concatenate([obs_next_delayed, prev_act], axis=0)
         elif self.history_num == 0:
             raise NotImplementedError("Not implemented yet")
