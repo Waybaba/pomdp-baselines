@@ -29,6 +29,7 @@ register(
     kwargs=dict(
         sub_env_name="False",
         delay_steps=1,
+        cat_action=None,
     ),
     max_episode_steps=1000,
 )

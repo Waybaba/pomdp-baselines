@@ -198,7 +198,7 @@ class Learner:
             import envs.delayed
 
             assert num_eval_tasks > 0
-            self.train_env = gym.make(env_name, delay_steps=kwargs["delay_steps"], sub_env_name=kwargs["sub_env_name"])
+            self.train_env = gym.make(env_name, delay_steps=kwargs["delay_steps"], sub_env_name=kwargs["sub_env_name"], cat_action=kwargs["cat_action"])
             self.train_env.seed(self.seed)
             self.train_env.action_space.np_random.seed(self.seed)  # crucial
 

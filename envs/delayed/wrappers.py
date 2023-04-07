@@ -62,39 +62,44 @@ class DelayedWrapper(gym.Wrapper):
     ! TODO remove global_config related;
     ! TODO return last act and obs together
     """
-    def __init__(self, sub_env_name: str, delay_steps=2):
+    def __init__(self, sub_env_name: str, delay_steps=2, cat_action=None):
         env = gym.make(sub_env_name)
         super().__init__(env)
+        assert cat_action is not None, "cat_action must be specified"
         self.env = env
         self.delay_steps = delay_steps
+        self.cat_action = cat_action
         self.global_cfg = global_config(delay_steps)
         # cat 
-        self.observation_space = spaces.Box(
-            low=np.concatenate([self.env.observation_space.low, self.env.action_space.low]),
-            high=np.concatenate([self.env.observation_space.high, self.env.action_space.high]),
-            dtype=np.float32,
-        )
+        if self.cat_action:
+            self.observation_space = spaces.Box(
+                low=np.concatenate([self.env.observation_space.low, self.env.action_space.low]),
+                high=np.concatenate([self.env.observation_space.high, self.env.action_space.high]),
+                dtype=np.float32,
+            )
         # delayed observations
         self.delayed_obs = np.zeros([delay_steps + 1] + list(self.observation_space.shape), dtype=np.float32)
         self.delay_buf = Queue(maxsize=delay_steps+1)
 
         # history merge
-        if self.global_cfg.actor_input.history_merge_method != "none" or \
-            self.global_cfg.critic_input.history_merge_method != "none":
-            self.history_num = self.global_cfg.actor_input.history_num # short flag
-            self.act_buf = [np.zeros(self.env.action_space.shape) for _ in range(self.history_num)]
-        else:
-            self.history_num = 0
+        if self.cat_action:
+            if self.global_cfg.actor_input.history_merge_method != "none" or \
+                self.global_cfg.critic_input.history_merge_method != "none":
+                self.history_num = self.global_cfg.actor_input.history_num # short flag
+                self.act_buf = [np.zeros(self.env.action_space.shape) for _ in range(self.history_num)]
+            else:
+                self.history_num = 0
         # ! TODO obs space
 
     def reset(self):
         res = self.env.reset()
         if isinstance(res, tuple): # (obs, {}) # discard info {}
             res = res[0]
-        self.prev_act = np.zeros(self.env.action_space.shape) # ! TODO conditional set
-        if self.history_num > 0:
-            self.act_buf = [np.zeros(self.env.action_space.shape) for _ in range(self.history_num)]
-        res = np.concatenate([res, self.prev_act], axis=0)
+        if self.cat_action:
+            self.prev_act = np.zeros(self.env.action_space.shape) # ! TODO conditional set
+            if self.history_num > 0:
+                self.act_buf = [np.zeros(self.env.action_space.shape) for _ in range(self.history_num)]
+            res = np.concatenate([res, self.prev_act], axis=0)
         return res
 
     def preprocess_fn(self, res, action):
@@ -114,15 +119,16 @@ class DelayedWrapper(gym.Wrapper):
         info["obs_next_nodelay"] = obs_next_nodelay
         info["obs_next_delayed"] = obs_next_delayed
         # history merge
-        if self.history_num > 0:
-            info["historical_act"] = np.concatenate(self.act_buf, axis=0)
-            self.act_buf.append(action)
-            self.act_buf.pop(0)
-            prev_act = self.act_buf[-1]
-            obs_next_delayed = np.concatenate([obs_next_delayed, prev_act], axis=0)
-        elif self.history_num == 0:
-            raise NotImplementedError("Not implemented yet")
-            info["historical_act"] = False
+        if self.cat_action:
+            if self.history_num > 0:
+                info["historical_act"] = np.concatenate(self.act_buf, axis=0)
+                self.act_buf.append(action)
+                self.act_buf.pop(0)
+                prev_act = self.act_buf[-1]
+                obs_next_delayed = np.concatenate([obs_next_delayed, prev_act], axis=0)
+            elif self.history_num == 0:
+                raise NotImplementedError("Not implemented yet")
+                info["historical_act"] = False
         return (deepcopy(obs_next_delayed), deepcopy(reward), deepcopy(done), deepcopy(info))
 
     def step(self, action):

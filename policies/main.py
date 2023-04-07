@@ -20,6 +20,7 @@ flags.DEFINE_string("cfg", None, "path to configuration file")
 flags.DEFINE_string("env", None, "env_name")
 flags.DEFINE_string("sub_env_name", None, "sub_env_name")
 flags.DEFINE_integer("delay_steps", None, "delay_steps")
+flags.DEFINE_boolean("env_cat_action", False, "env_cat_action")
 flags.DEFINE_string("algo", None, '["td3", "sac", "sacd"]')
 
 flags.DEFINE_boolean("automatic_entropy_tuning", None, "for [sac, sacd]")
@@ -48,6 +49,8 @@ if FLAGS.sub_env_name is not None:
     v["env"]["sub_env_name"] = FLAGS.sub_env_name
 if FLAGS.delay_steps is not None:
     v["env"]["delay_steps"] = FLAGS.delay_steps
+if FLAGS.env_cat_action is not None:
+    v["env"]["cat_action"] = FLAGS.env_cat_action
 
 if FLAGS.algo is not None:
     v["policy"]["algo_name"] = FLAGS.algo
