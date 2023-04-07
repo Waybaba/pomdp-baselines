@@ -186,7 +186,7 @@ search:
     # sku: G1
     command:
     # - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed} --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
-    - python policies/main.py --cfg configs/delayed/rnn.yml --seed 1 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
+    - python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 1 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 2 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
       python policies/main.py --cfg configs/delayed/rnn.yml --seed 3 --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
@@ -204,7 +204,7 @@ search:
     - name: env_name
       # values: [HalfCheetah-v4]
       values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
-    - name: seed
-      values: [0,1,2,3,4]
+    # - name: seed
+    #   values: [0,1,2,3,4]
     - name: tags
       values: ["sweepDelayed_fixDiffBug"]
