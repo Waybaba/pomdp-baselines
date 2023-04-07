@@ -152,7 +152,7 @@ if seq_model != "mlp":
     exp_id += policy_input_str + "/"
 
 os.makedirs(exp_id, exist_ok=True)
-log_folder = os.path.join(exp_id, system.now_str())
+log_folder = os.path.join(exp_id, system.now_str(), pid)
 logger_formats = ["stdout", "log", "csv"]
 if v["eval"]["log_tensorboard"]:
     logger_formats.append("tensorboard")
