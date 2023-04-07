@@ -28,6 +28,7 @@ flags.DEFINE_float("entropy_alpha", None, "for [sac, sacd]")
 
 flags.DEFINE_integer("seed", None, "seed")
 flags.DEFINE_integer("cuda", None, "cuda device id")
+flags.DEFINE_string("tags", ["debug"], "wandb tags")
 flags.DEFINE_boolean(
     "oracle",
     False,
@@ -70,6 +71,8 @@ if FLAGS.oracle:
     v["env"]["oracle"] = True
 if FLAGS.debug:
     v["debug"] = FLAGS.debug
+if FLAGS.tags:
+    v["tags"] = FLAGS.tags
 # system: device, threads, seed, pid
 seed = v["seed"]
 system.reproduce(seed)
@@ -90,6 +93,7 @@ if FLAGS.debug:
     exp_id = "debug/"
 else:
     exp_id = "logs/"
+
 
 env_type = v["env"]["env_type"]
 if len(v["env"]["env_name"].split("-")) == 3:
@@ -163,7 +167,8 @@ logger.log("pid", pid, socket.gethostname())
 os.makedirs(os.path.join(logger.get_dir(), "save"))
 
 import wandb
-wandb.init(project="RL_RNN", dir=log_folder, config=v)
+
+wandb.init(project="RL_RNN", dir=log_folder, config=v, tags=v["tags"])
 
 # start training
 learner = Learner(
