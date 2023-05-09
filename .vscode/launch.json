@@ -1,0 +1,66 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Python: Current File",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"justMyCode": true, 
+		},
+		// python policies/main.py --cfg configs/pomdp/ant_blt/p/rnn.yml --algo sac
+		{
+			"name": "mujoco",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/policies/main.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": [
+				"--cfg", "${workspaceFolder}/configs/pomdp/hopper_blt/p/rnn.yml",
+				"--algo", "sac",
+				"--cuda", "0",
+			]
+		},
+		{
+			"name": "delayed",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/policies/main.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": [
+				"--cfg", "${workspaceFolder}/configs/delayed/rnn.yml",
+				"--algo", "td3",
+				"--cuda", "0",
+				"--nodebug",
+				"--env", "Delayed-v0",
+				"--noenv_cat_action", 
+				// "--sub_env_name", "HopperBulletEnv-v0",
+				// "--sub_env_name", "HumanoidBulletEnv-v0",
+				// "--sub_env_name", "HumanoidStandupBulletEnv-v0",
+				"--sub_env_name", "Hopper-v4",
+				"--delay_steps", "10",
+			]
+		},
+		// python policies/main.py --cfg configs/pomdp/cartpole/v/rnn.yml --target_entropy 0.7
+		{
+			"name": "cartpole",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceFolder}/policies/main.py",
+			"console": "integratedTerminal",
+			"justMyCode": true,
+			"args": [
+				"--cfg",
+				"${workspaceFolder}/configs/pomdp/cartpole/v/rnn.yml",
+				"--target_entropy",
+				"0.7"
+			]
+		}
+	]
+}
