@@ -43,7 +43,7 @@
 				// "--sub_env_name", "HopperBulletEnv-v0",
 				// "--sub_env_name", "HumanoidBulletEnv-v0",
 				// "--sub_env_name", "HumanoidStandupBulletEnv-v0",
-				"--sub_env_name", "Humanoid-v4",
+				"--sub_env_name", "HumanoidStandup-v4",
 				"--delay_steps", "0",
 			]
 		},

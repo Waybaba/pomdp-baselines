@@ -186,11 +186,11 @@ search:
     # sku: G1
     command:
     # - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed} --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
-    - python policies/main.py --cfg configs/delayed/rnn.yml --seed 0 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
-      python policies/main.py --cfg configs/delayed/rnn.yml --seed 1 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
-      python policies/main.py --cfg configs/delayed/rnn.yml --seed 2 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
-      python policies/main.py --cfg configs/delayed/rnn.yml --seed 3 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
-      python policies/main.py --cfg configs/delayed/rnn.yml --seed 4 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
+    - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}0 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}1 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}2 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}3 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
+      python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}4 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
 
     
      
@@ -209,7 +209,7 @@ search:
       # values: [HalfCheetah-v4]
       # values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
       values: [Hopper-v4,HalfCheetah-v4,Ant-v4,Walker2d-v4,HumanoidStandup-v4,Humanoid-v4]
-    # - name: seed
-    #   values: [0,1,2,3,4]
+    - name: seed_base
+      values: [1,2]
     - name: tags
       values: ["final_sweep_rnnStrong"]
