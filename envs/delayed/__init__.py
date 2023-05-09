@@ -1,5 +1,7 @@
-from gym.envs.registration import register
-import gym
+# from gym.envs.registration import register
+# import gym
+from gymnasium.envs.registration import register
+import gymnasium as gym
 
 ### Below are pybullect (roboschool) environments, using BLT for Bullet
 import pybullet_envs
@@ -26,10 +28,10 @@ np.concatenate(
 register(
     "Delayed-v0",
     entry_point="envs.delayed.wrappers:DelayedWrapper",
-    kwargs=dict(
-        sub_env_name="False",
-        delay_steps=1,
-        cat_action=None,
-    ),
+    kwargs={
+        "sub_env_name": "False",
+        "delay_steps": 1,
+        "cat_action": None,
+    },
     max_episode_steps=1000,
 )

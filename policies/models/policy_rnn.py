@@ -112,6 +112,9 @@ class ModelFreeOffPolicy_Separate_RNN(nn.Module):
         reward = reward.unsqueeze(0)  # (1, B, 1)
         obs = obs.unsqueeze(0)  # (1, B, dim)
 
+        if self.no_reward_input == True:
+            reward = torch.zeros_like(reward)
+
         current_action_tuple, current_internal_state = self.actor.act(
             prev_internal_state=prev_internal_state,
             prev_action=prev_action,

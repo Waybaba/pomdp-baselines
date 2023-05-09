@@ -5,7 +5,8 @@ import math
 import numpy as np
 import torch
 from torch.nn import functional as F
-import gym
+# import gym
+import gymnasium as gym
 
 from .models import AGENT_CLASSES, AGENT_ARCHS
 from torchkit.networks import ImageEncoder
@@ -199,11 +200,11 @@ class Learner:
 
             assert num_eval_tasks > 0
             self.train_env = gym.make(env_name, delay_steps=kwargs["delay_steps"], sub_env_name=kwargs["sub_env_name"], cat_action=kwargs["cat_action"])
-            self.train_env.seed(self.seed)
-            self.train_env.action_space.np_random.seed(self.seed)  # crucial
+            # self.train_env.seed(self.seed)
+            # self.train_env.action_space.np_random.seed(self.seed)  # crucial
 
             self.eval_env = self.train_env
-            self.eval_env.seed(self.seed + 1)
+            # self.eval_env.seed(self.seed + 1)
 
             self.train_tasks = []
             self.eval_tasks = num_eval_tasks * [None]

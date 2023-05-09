@@ -207,7 +207,8 @@ search:
       values: [td3,sac]
     - name: env_name
       # values: [HalfCheetah-v4]
-      values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
+      # values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
+      values: Hopper-v4,HalfCheetah-v4,Ant-v4,Walker2d-v4,HumanoidStandup-v4,Humanoid-v4]
     # - name: seed
     #   values: [0,1,2,3,4]
     - name: tags

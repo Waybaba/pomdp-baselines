@@ -21,3 +21,4 @@ third_party/
 .devcontainer/mujoco/*
 .env
 !/.vscode/launch.json
+*.swp

@@ -1,4 +1,5 @@
-import gym
+# import gym
+import gymnasium as gym
 from gym import spaces
 import numpy as np
 from queue import Queue
@@ -62,6 +63,7 @@ class DelayedWrapper(gym.Wrapper):
     ! TODO remove global_config related;
     ! TODO return last act and obs together
     """
+    metadata = {'render.modes': ['human', 'text']}
     def __init__(self, sub_env_name: str, delay_steps=2, cat_action=None):
         env = gym.make(sub_env_name)
         super().__init__(env)
