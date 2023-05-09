@@ -43,8 +43,8 @@
 				// "--sub_env_name", "HopperBulletEnv-v0",
 				// "--sub_env_name", "HumanoidBulletEnv-v0",
 				// "--sub_env_name", "HumanoidStandupBulletEnv-v0",
-				"--sub_env_name", "Hopper-v4",
-				"--delay_steps", "10",
+				"--sub_env_name", "Humanoid-v4",
+				"--delay_steps", "0",
 			]
 		},
 		// python policies/main.py --cfg configs/pomdp/cartpole/v/rnn.yml --target_entropy 0.7

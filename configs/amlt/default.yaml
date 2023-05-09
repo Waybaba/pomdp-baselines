@@ -5,7 +5,7 @@ target:
   name: msrresrchvc    # more GPUs 
 
 environment:
-  image: waybaba/rl:v4
+  image: waybaba/rl:rnn_strong
   username: waybaba
   setup:
     - echo "setup start..."
@@ -202,14 +202,14 @@ search:
     - name: ifcatact
       values: [noenv_cat_action]
     - name: delay_step
-      values: [1,2,4,8,16]
+      values: [0,1,2,4,8,16]
     - name: algo
       values: [td3,sac]
     - name: env_name
       # values: [HalfCheetah-v4]
       # values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
-      values: Hopper-v4,HalfCheetah-v4,Ant-v4,Walker2d-v4,HumanoidStandup-v4,Humanoid-v4]
+      values: [Hopper-v4,HalfCheetah-v4,Ant-v4,Walker2d-v4,HumanoidStandup-v4,Humanoid-v4]
     # - name: seed
     #   values: [0,1,2,3,4]
     - name: tags
-      values: ["sweepDelayed_fixDiffBug"]
+      values: ["final_sweep_rnnStrong"]
