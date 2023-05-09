@@ -131,7 +131,8 @@ class DelayedWrapper(gym.Wrapper):
             elif self.history_num == 0:
                 raise NotImplementedError("Not implemented yet")
                 info["historical_act"] = False
-        return (deepcopy(obs_next_delayed), deepcopy(reward), deepcopy(done), deepcopy(info))
+        # return (deepcopy(obs_next_delayed), deepcopy(reward), deepcopy(done), deepcopy(info))
+        return (deepcopy(obs_next_delayed), deepcopy(reward), deepcopy(done), deepcopy(truncated), deepcopy(info))
 
     def step(self, action):
         """

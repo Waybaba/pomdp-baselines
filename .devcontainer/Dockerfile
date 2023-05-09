@@ -70,6 +70,8 @@ RUN pip install \
     pycolab \
     "gym[box2d]" \
     roboschool
+RUN pip install \
+    mujoco==2.3.3
 
 
 # Non-root user creation and enter
