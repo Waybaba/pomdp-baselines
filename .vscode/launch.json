@@ -37,7 +37,7 @@
 				"--cfg", "${workspaceFolder}/configs/delayed/rnn.yml",
 				"--algo", "td3",
 				"--cuda", "0",
-				"--nodebug",
+				// "--nodebug",
 				"--env", "Delayed-v0",
 				"--noenv_cat_action", 
 				// "--sub_env_name", "HopperBulletEnv-v0",

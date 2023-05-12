@@ -47,8 +47,8 @@ def env_step(env, action):
     action = ptu.get_numpy(action)
     if env.action_space.__class__.__name__ == "Discrete":
         action = np.argmax(action)  # one-hot to int
-    res = env.step(action)
-    next_obs, reward, done, _, info = res
+    next_obs, reward, terminated, truncated, info = env.step(action)
+    done = terminated or truncated
 
     # move to torch
     next_obs = ptu.from_numpy(next_obs).view(-1, next_obs.shape[0])
