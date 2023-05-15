@@ -159,7 +159,7 @@ path_prefix = ""
 # if $AMLT_DIRSYNC_DIR exists, use it as prefix
 if "AMLT_DIRSYNC_DIR" in os.environ:
     path_prefix = os.environ["AMLT_DIRSYNC_DIR"]
-log_folder = os.path.join(exp_id, system.now_str(), pid)
+log_folder = os.path.join(path_prefix,exp_id, system.now_str(), pid)
 print("log_folder: ", log_folder)
 logger_formats = ["stdout", "log", "csv"]
 if v["eval"]["log_tensorboard"]:

@@ -1,0 +1,6 @@
+# logs, a soft link to disk
+logs
+logs/
+data/
+debug/
+scripts/tmp_configs/

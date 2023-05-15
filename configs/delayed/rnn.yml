@@ -11,7 +11,7 @@ env:
 
 train:
   # 1500*1000=1.5M steps, cost 2 days
-  num_iters: 1500 # number meta-training iterates
+  num_iters: 2000 # number meta-training iterates
   num_init_rollouts_pool: 10 # before training
   num_rollouts_per_iter: 1
   buffer_size: 1e6 # we should full buffer size as VRM

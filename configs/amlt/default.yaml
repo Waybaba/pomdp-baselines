@@ -183,8 +183,8 @@ search:
   job_template:
     name: RL_RNN_{experiment_name:s}_{auto:5s}
     # sku: 24G1-P40
-    # sku: G1
-    sku: G1-V100
+    sku: G1
+    # sku: G1-V100
     command:
     # - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed} --algo sac --{ifdebug} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}]
     - python policies/main.py --cfg configs/delayed/rnn.yml --seed {seed_base}0 --algo {algo} --{ifdebug} --{ifcatact} --env Delayed-v0 --sub_env_name {env_name} --delay_steps {delay_step} --cuda 0 --tags [{tags}] &
@@ -209,6 +209,6 @@ search:
       # values: [HopperBulletEnv-v0,HalfCheetahBulletEnv-v0,Walker2DBulletEnv-v0,AntBulletEnv-v0]
       values: [HalfCheetah-v4,Hopper-v4,Ant-v4,Walker2d-v4,Swimmer-v4, Reacher-v4]
     - name: seed_base
-      values: [1,2]
+      values: [5]
     - name: tags
-      values: ["final_sweep_rnnStrong_test"]
+      values: ["final_sweep_rnnStrong_3"]
